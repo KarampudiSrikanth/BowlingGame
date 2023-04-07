@@ -2,75 +2,85 @@ package test;
 
 import java.util.Scanner;
 
+
 public class BowlingGame {
+public static void main(String[] args) {
+Scanner sc = new Scanner(System.in);
 
-	private int[] rolls = new int[21];
-    private int currentRoll = 0;
+int[] scr = new int[21];
 
-    public void roll(int pins) {
-        rolls[currentRoll] = pins;
-        currentRoll++;
-    }
+int frame = 0;
+int score = 0;
+int roll1 = 0, roll2 = 0;
 
-    public int score() {
-        int score = 0;
-        int frameIndex = 0;
-        for (int frame = 0; frame < 10; frame++) {
-            if (isStrike(frameIndex)) {
-                score += 10 + strikeBonus(frameIndex);
-                frameIndex++;
-            } else if (isSpare(frameIndex)) {
-                score += 10 + spareBonus(frameIndex);
-                frameIndex += 2;
-            } else {
-                score += sumOfBallsInFrame(frameIndex);
-                frameIndex += 2;
-            }
-        }
-        return score;
-    }
+boolean strike = false, spare = false;
 
-    private boolean isStrike(int frameIndex) {
-        return rolls[frameIndex] == 10;
-    }
+while(frame < 10)
+{
+System.out.println("Frame "+(frame+1));
 
-    private boolean isSpare(int frameIndex) {
-        return rolls[frameIndex] + rolls[frameIndex + 1] == 10;
-    }
+roll1 = sc.nextInt();
+score += roll1;
 
-    private int strikeBonus(int frameIndex) {
-        return rolls[frameIndex + 1] + rolls[frameIndex + 2];
-    }
+if(spare)
+{
+score += roll1;
+spare = false;
+}
 
-    private int spareBonus(int frameIndex) {
-        return rolls[frameIndex + 2];
-    }
+if(roll1 == 10)
+{
+if(strike)
+{
+score += roll1;
+}
+strike = true;
+frame++;
+continue;
+}
 
-    private int sumOfBallsInFrame(int frameIndex) {
-        return rolls[frameIndex] + rolls[frameIndex + 1];
-    }
+roll2 = sc.nextInt();
+score += roll2;
 
-    public static void main(String[] args) {
-        BowlingGame game = new BowlingGame();
-        Scanner scanner = new Scanner(System.in);
+if(strike)
+{
+score += roll1 + roll2;
+strike = false;
+}
 
-        for (int frame = 0; frame < 10; frame++) {
-            System.out.print("Enter the number of pins knocked down in frame " + (frame + 1) + ": ");
-            int pins = scanner.nextInt();
-            game.roll(pins);
-            if (pins == 10) {
-                System.out.println("Strike!");
-            } else {
-                System.out.print("Enter the number of pins knocked down in the second roll of frame " + (frame + 1) + ": ");
-                pins = scanner.nextInt();
-                game.roll(pins);
-                if (game.isSpare(game.currentRoll - 2)) {
-                    System.out.println("Spare!");
-                }
-            }
-        }
+if(roll1+roll2 == 10)
+{
+spare = true;
+}
 
-        int score = game.score();
-        System.out.println("Your final score is: " + score);
-    }
+frame++;
+
+}
+
+if(strike)
+{
+System.out.println("Extra Roll 1");
+roll1 = sc.nextInt();
+System.out.println("Extra Roll 2");
+roll2 = sc.nextInt();
+score += roll1 +roll2;
+}
+else if(spare)
+{
+System.out.println("Extra Roll");
+roll1 = sc.nextInt();
+score += roll1;
+}
+
+
+System.out.println(score);
+}
+
+public int score() {
+	return 0;
+}
+
+public void roll(int i) {
+	
+}
 }
