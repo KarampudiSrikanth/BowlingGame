@@ -36,7 +36,7 @@ for (int i = 0; i < 17; i++) {
    game.roll(0);
 }
 assert game.score() == 16;
-}
+    }
 //
 // // A strike followed by a 3 and a 4 should score 24
 @Test
@@ -48,7 +48,7 @@ game.roll(4);
 for (int i = 0; i < 16; i++) {
    game.roll(0);
 }
-assert game.score() == 24;
+assert game.score() == 24 ;
 }
 
 // // The perfect game (12 times 10) should score 300
@@ -61,4 +61,3 @@ for (int i = 0; i < 12; i++) {
 assert game.score() == 300;
 }
 }
-
